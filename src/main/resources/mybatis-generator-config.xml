@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE generatorConfiguration PUBLIC
+        "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd" >
+<generatorConfiguration>
+
+    <!-- 本地数据库驱动程序jar包的全路径 -->
+    <classPathEntry location="C:\Users\Administrator\.m2\repository\mysql\mysql-connector-java\5.1.44\mysql-connector-java-5.1.44.jar"/>
+
+    <context id="context" targetRuntime="MyBatis3" defaultModelType="flat">
+        <!-- 当表名或者字段名为SQL关键字的时候，设置该属性为true，M自动给表名或字段名添加分隔符 -->
+        <property name="autoDelimitKeywords" value="true"/>
+        <!-- 分隔符起始 -->
+        <property name="beginningDelimiter" value="`"/>
+        <!-- 分隔符结束 -->
+        <property name="endingDelimiter" value="`"/>
+
+
+        <!-- 支持的MyBatis RowBounds,分页 -->
+        <plugin type="org.mybatis.generator.plugins.RowBoundsPlugin"/>
+
+        <!-- bean添加Equals,HashCode方法 -->
+        <plugin type="org.mybatis.generator.plugins.EqualsHashCodePlugin"/>
+
+        <!-- bean添加序列化接口 -->
+        <plugin type="org.mybatis.generator.plugins.SerializablePlugin">
+            <property name="suppressJavaInterface" value="false"/>
+        </plugin>
+
+        <!-- bean添加toString方法 -->
+        <plugin type="org.mybatis.generator.plugins.ToStringPlugin"/>
+
+        <commentGenerator>
+            <!-- 设置要使用的Java文件的编码，默认使用当前平台的编码，只有当生产的编码需要特殊指定时才需要使用，一般用不到 -->
+            <property name="javaFileEncoding" value="UTF-8"/>
+            <!-- 去除自动生成的注释 true：是 ： false:否 -->
+            <property name="suppressAllComments" value="true"/>
+            <property name="suppressDate" value="true"/>
+        </commentGenerator>
+
+        <!-- 数据库的相关配置 -->
+        <jdbcConnection driverClass="com.mysql.jdbc.Driver" connectionURL="jdbc:mysql://192.168.1.2:3306/testy" userId="root" password="root"/>
+
+        <javaTypeResolver>
+            <!-- 是否使用bigDecimal， false可自动转化以下类型（Long, Integer, Short, etc.） -->
+            <property name="forceBigDecimals" value="false"/>
+        </javaTypeResolver>
+
+        <!-- 实体类生成的位置 -->
+        <javaModelGenerator targetPackage="com.github.model" targetProject="src/main/java">
+            <!-- enableSubPackages:是否让schema作为包的后缀 -->
+            <property name="enableSubPackages" value="false"/>
+            <!-- 从数据库返回的值被清理前后的空格 -->
+            <property name="trimStrings" value="true"/>
+            <!-- 如果true就会使用构造方法入参，如果false就会使用setter方式。默认为false -->
+            <property name="constructorBased" value="false"/>
+        </javaModelGenerator>
+
+        <!-- *Mapper.xml 文件的位置 -->
+        <sqlMapGenerator targetPackage="com.github.mapper.xml" targetProject="src/main/java">
+            <property name="enableSubPackages" value="false"/>
+        </sqlMapGenerator>
+
+        <!-- Mapper 接口文件的位置 -->
+        <!-- ANNOTATEDMAPPER:基于注解的Mapper接口，不会有对应的XML映射文件 -->
+        <!-- MIXEDMAPPER:XML和注解的混合形式，(上面这种情况中的)SqlProvider注解方法会被XML替代 -->
+        <!-- XMLMAPPER:所有的方法都在XML中，接口调用依赖XML文件 -->
+        <javaClientGenerator targetPackage="com.github.mapper" targetProject="src/main/java" type="ANNOTATEDMAPPER">
+            <property name="enableSubPackages" value="false"/>
+        </javaClientGenerator>
+
+        <!-- 相关表的配置(只写需要生成的表) -->
+        <table tableName="t_resource" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
+               enableUpdateByExample="false" domainObjectName="Resource">
+            <!--domain字段的命名规则，false:默认为驼峰命名 true:按数据库真实命名  -->
+            <!--<property name="useActualColumnNames" value="false"/>-->
+            <!-- 忽略列，不生成bean 字段 -->
+                 <!--<ignoreColumn column="id" />-->
+            <!-- 指定列的java数据类型 -->
+            <!--     <columnOverride column="cover" jdbcType="VARCHAR" />   -->
+            <generatedKey column="id" sqlStatement="MySql" identity="true"/>
+        </table>
+    </context>
+</generatorConfiguration>
