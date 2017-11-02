@@ -8,6 +8,8 @@ import com.github.repository.PermissionRepository;
 import com.github.repository.RoleRepository;
 import com.github.repository.UserRepository;
 import com.github.service.UserService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,6 +20,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+@Api(description = "描述该类的作用")
 @Controller
 @RequestMapping("t")
 public class TestController {
@@ -83,6 +86,7 @@ public class TestController {
 		return permissionRepository.getUserPermissionTree(1);
 	}
 
+	@ApiOperation(value = "这是一个demo接口", notes = "user demo")
 	@ResponseBody
 	@GetMapping("demo")
 	public List<User> demo() {
