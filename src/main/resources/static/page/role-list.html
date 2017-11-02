@@ -124,7 +124,7 @@
                 });
             } else if(layEvent === 'edit'){ //编辑
 
-                showPage('编辑', "http://www.baidu.com/");
+                showPage('编辑', "/role/" + data.id + "/edit");
                 //同步更新缓存对应的值
                 obj.update({
                     name: 'updateName'

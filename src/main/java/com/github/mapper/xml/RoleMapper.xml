@@ -11,10 +11,47 @@
         <result property="createTime" column="create_time"/>
         <result property="description" column="description"/>
 	</resultMap>
-    
+
+    <insert id="add" useGeneratedKeys="true" keyProperty="id">
+        <![CDATA[
+        INSERT INTO t_role (
+        	id,
+        	name,
+        	code,
+        	status,
+        	create_time,
+        	description
+        ) VALUES (
+        	#{id},
+        	#{name},
+        	#{code},
+        	#{status},
+        	#{createTime},
+        	#{description}
+        )
+        ]]>
+    </insert>
+
     <delete id="delete">
         DELETE FROM t_role WHERE id = #{id}
     </delete>
+    
+    <update id="update" parameterType="com.github.model.Role">
+        <![CDATA[
+        UPDATE t_role SET
+	        name = #{name},
+	        code = #{code},
+	        status = #{status},
+	        create_time = #{createTime},
+	        description = #{description}
+        WHERE
+	        id = #{id}
+        ]]>
+    </update>
+
+    <select id="get" resultMap="BaseResultMap">
+        SELECT * FROM t_role WHERE id = #{id}
+    </select>
 	
 	<select id="getList" parameterType="com.github.model.Role" resultMap="BaseResultMap">
 		SELECT * FROM t_role

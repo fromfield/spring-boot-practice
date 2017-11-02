@@ -47,9 +47,10 @@ import java.util.List;
 @Repository
 public interface RoleMapper {
 	
-	void insert(Role role);
+	void add(Role role);
 	void delete(Integer id);
 	void update(Role role);
+	Role get(Integer id);
 
 	List<Role> getList();
 	List<Role> getList(Role role);
