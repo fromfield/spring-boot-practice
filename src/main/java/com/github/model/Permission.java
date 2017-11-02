@@ -37,59 +37,52 @@
 package com.github.model;
 
 import org.apache.commons.lang3.builder.*;
-import org.hibernate.annotations.Table;
-import org.hibernate.annotations.Where;
 
-import javax.persistence.*;
-import java.util.Date;
 import java.util.List;
-import java.util.Set;
 
-@Entity(name = "t_permission")
-@Table(appliesTo = "t_permission", comment = "权限表 - 资源 + 操作")
 public class Permission {
 	
-	@Id
-	@GeneratedValue
+	//alias
+	public static final String TABLE_ALIAS = "Permission";
+	public static final String ALIAS_ID = "id";
+	public static final String ALIAS_PARENT_ID = "父节点id";
+	public static final String ALIAS_NAME = "权限名称";
+	public static final String ALIAS_CODE = "权限代码";
+	public static final String ALIAS_ICON = "菜单前面的图标css";
+	public static final String ALIAS_URL = "资源链接地址 - 生成菜单时使用";
+	public static final String ALIAS_TARGET = "链接打开方式: 0内容区域打开 1新页面打开";
+	public static final String ALIAS_MENU = "是否展示位菜单项";
+	public static final String ALIAS_STATUS = "是否启用: 0禁用 1启用";
+	public static final String ALIAS_CREATE_TIME = "创建时间";
+	public static final String ALIAS_DESCRIPTION = "权限描述";
+	
+	
+	//columns START
+	/** id   db_column: id */ 	
 	private Integer id;
-
-	@Column(columnDefinition = "int(11) COMMENT '父级菜单id'")
+	/** 父节点id   db_column: parent_id */ 	
 	private Integer parentId;
-
-	@Column(columnDefinition = "varchar(64) COMMENT '权限名称'")
+	/** 权限名称   db_column: name */ 	
 	private String name;
-
-	@Column(columnDefinition = "varchar(64) COMMENT '权限代码'")
+	/** 权限代码   db_column: code */ 	
 	private String code;
-
-	@Column(columnDefinition = "varchar(64) COMMENT '菜单前面的图标css'")
+	/** 菜单前面的图标css   db_column: icon */ 	
 	private String icon;
-
-	@Column(columnDefinition = "varchar(64) COMMENT '资源链接地址 - 生成菜单时使用'")
+	/** 资源链接地址 - 生成菜单时使用   db_column: url */ 	
 	private String url;
-
-	@Column(columnDefinition = "varchar(64) COMMENT '资源链接地址 - 生成菜单时使用'")
-	private String target;
-
-	@Column(columnDefinition = "int(1) COMMENT '是否启用: 0禁用 1启用'")
+	/** 链接打开方式: 0内容区域打开 1新页面打开   db_column: target */ 	
+	private Integer target;
+	/** 是否展示位菜单项   db_column: menu */ 	
 	private Integer menu;
-
-	@Column(columnDefinition = "int(1) COMMENT '是否启用: 0禁用 1启用'")
+	/** 是否启用: 0禁用 1启用   db_column: status */ 	
 	private Integer status;
-
-	@Temporal(TemporalType.TIMESTAMP)
-	@Column(columnDefinition = "datetime COMMENT '创建时间'")
-	private Date createTime;
-
-	@Column(columnDefinition = "varchar(128) COMMENT '权限描述'")
+	/** 创建时间   db_column: create_time */ 	
+	private java.util.Date createTime;
+	/** 权限描述   db_column: description */ 	
 	private String description;
+	//columns END
 
-
-
-	@OneToMany(cascade = CascadeType.ALL)
-	@JoinColumn(name = "parentId")
-	@OrderBy("id ASC")
-	private List<Permission> permissionSet;
+	private List<Permission> permissionList;
 
 	public Permission(){
 	}
@@ -124,17 +117,29 @@ public class Permission {
 	public String getCode() {
 		return this.code;
 	}
-	public void setDescription(String value) {
-		this.description = value;
+	public void setIcon(String value) {
+		this.icon = value;
 	}
-	public String getDescription() {
-		return this.description;
+	public String getIcon() {
+		return this.icon;
 	}
 	public void setUrl(String value) {
 		this.url = value;
 	}
 	public String getUrl() {
 		return this.url;
+	}
+	public void setTarget(Integer value) {
+		this.target = value;
+	}
+	public Integer getTarget() {
+		return this.target;
+	}
+	public void setMenu(Integer value) {
+		this.menu = value;
+	}
+	public Integer getMenu() {
+		return this.menu;
 	}
 	public void setStatus(Integer value) {
 		this.status = value;
@@ -148,41 +153,38 @@ public class Permission {
 	public java.util.Date getCreateTime() {
 		return this.createTime;
 	}
-
-	public String getIcon() {
-		return icon;
+	public void setDescription(String value) {
+		this.description = value;
+	}
+	public String getDescription() {
+		return this.description;
 	}
 
-	public void setIcon(String icon) {
-		this.icon = icon;
+	public List<Permission> getPermissionList() {
+		return permissionList;
 	}
 
-	public Integer getMenu() {
-		return menu;
-	}
-
-	public String getTarget() {
-		return target;
-	}
-
-	public void setTarget(String target) {
-		this.target = target;
-	}
-
-	public void setMenu(Integer menu) {
-		this.menu = menu;
-	}
-
-	public List<Permission> getPermissionSet() {
-		return permissionSet;
-	}
-
-	public void setPermissionSet(List<Permission> permissionSet) {
-		this.permissionSet = permissionSet;
+	public void setPermissionList(List<Permission> permissionList) {
+		this.permissionList = permissionList;
 	}
 
 	public String toString() {
 		return ToStringBuilder.reflectionToString(this, ToStringStyle.SHORT_PREFIX_STYLE);
+	}
+	
+	public int hashCode() {
+		return new HashCodeBuilder()
+			.append(getId())
+			.toHashCode();
+	}
+	
+	public boolean equals(Object obj) {
+		if(obj instanceof Permission == false) return false;
+		if(this == obj) return true;
+		Permission other = (Permission)obj;
+		return new EqualsBuilder()
+			.append(getId(),other.getId())
+			.isEquals();
 	}
 }
 

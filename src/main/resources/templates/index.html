@@ -75,19 +75,19 @@
                     </dl>
                 </li>
 
-                <li class="layui-nav-item" th:classappend="${permissionStat.first}? 'layui-nav-itemed'" th:each="permission, permissionStat : ${permissionSet}" th:if="${permission.status eq 1}">
+                <li class="layui-nav-item" th:each="permission : ${userMenuPermissionList}" th:classappend="${permissionStat.first}? 'layui-nav-itemed'">
 
-                    <a href="javascript:;" th:attr="href-url=${permission.url}" th:if="${permission.target eq '0'}">
+                    <a href="javascript:;" th:attr="href-url=${permission.url}" th:if="${permission.target eq 0}">
                         <i class="layui-icon" th:utext="${permission.icon}">&#xe628;</i>
                         <span th:text="${permission.name}">扩展</span>
                     </a>
-                    <a target="_blank" th:href="${permission.url}" th:if="${permission.target eq '1'}">
+                    <a target="_blank" th:href="${permission.url}" th:if="${permission.target eq 1}">
                         <i class="layui-icon" th:utext="${permission.icon}">&#xe628;</i>
                         <span th:text="${permission.name}">扩展</span>
                     </a>
 
-                    <dl class="layui-nav-child" th:unless="${#sets.isEmpty(permission.permissionSet)}" th:each="child : ${permission.permissionSet}">
-                        <dd th:if="${child.menu eq 1}">
+                    <dl class="layui-nav-child" th:unless="${#sets.isEmpty(permission.permissionList)}" th:each="child : ${permission.permissionList}">
+                        <dd>
                             <a href="javascript:;" href-url="demo/tips.html" th:attr="href-url=${child.url}">
                                 <i class="layui-icon" th:utext="${child.icon}">&#xe621;</i>
                                 <span th:text="${child.name}">扩展</span>

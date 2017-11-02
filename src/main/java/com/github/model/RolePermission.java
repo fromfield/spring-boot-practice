@@ -37,67 +37,79 @@
 package com.github.model;
 
 import org.apache.commons.lang3.builder.*;
-import org.hibernate.annotations.Table;
 
-import javax.persistence.*;
-import java.util.Date;
-
-@Entity(name = "t_role_permission")
-@Table(appliesTo = "t_role_permission", comment = "角色 - 权限表")
 public class RolePermission {
-
-	@Id
-	@GeneratedValue
+	
+	//alias
+	public static final String TABLE_ALIAS = "RolePermission";
+	public static final String ALIAS_ID = "id";
+	public static final String ALIAS_ROLE_ID = "roleId";
+	public static final String ALIAS_PERMISSION_ID = "permissionId";
+	public static final String ALIAS_UPDATE_TIME = "创建或更新时间";
+	
+	
+	//columns START
+	/** id   db_column: id */ 	
 	private Integer id;
+	/** roleId   db_column: role_id */ 	
+	private Integer roleId;
+	/** permissionId   db_column: permission_id */ 	
+	private Integer permissionId;
+	/** 创建或更新时间   db_column: update_time */ 	
+	private java.util.Date updateTime;
+	//columns END
 
-
-	@ManyToOne
-	@JoinColumn(name = "role_id")
-	private Role role;
-
-	@ManyToOne
-	@JoinColumn(name = "permission_id")
-	private Permission permission;
-
-	@Temporal(TemporalType.TIMESTAMP)
-	@Column(columnDefinition = "datetime COMMENT '创建时间'")
-	private Date createTime;
-
-	public Integer getId() {
-		return id;
+	public RolePermission(){
 	}
 
-	public void setId(Integer id) {
+	public RolePermission(
+		Integer id
+	){
 		this.id = id;
 	}
 
-	public Role getRole() {
-		return role;
+	public void setId(Integer value) {
+		this.id = value;
 	}
-
-	public void setRole(Role role) {
-		this.role = role;
+	public Integer getId() {
+		return this.id;
 	}
-
-	public Permission getPermission() {
-		return permission;
+	public void setRoleId(Integer value) {
+		this.roleId = value;
 	}
-
-	public void setPermission(Permission permission) {
-		this.permission = permission;
+	public Integer getRoleId() {
+		return this.roleId;
 	}
-
-	public Date getCreateTime() {
-		return createTime;
+	public void setPermissionId(Integer value) {
+		this.permissionId = value;
 	}
-
-	public void setCreateTime(Date createTime) {
-		this.createTime = createTime;
+	public Integer getPermissionId() {
+		return this.permissionId;
+	}
+	public void setUpdateTime(java.util.Date value) {
+		this.updateTime = value;
+	}
+	public java.util.Date getUpdateTime() {
+		return this.updateTime;
 	}
 
 	public String toString() {
 		return ToStringBuilder.reflectionToString(this, ToStringStyle.SHORT_PREFIX_STYLE);
 	}
 	
+	public int hashCode() {
+		return new HashCodeBuilder()
+			.append(getId())
+			.toHashCode();
+	}
+	
+	public boolean equals(Object obj) {
+		if(obj instanceof RolePermission == false) return false;
+		if(this == obj) return true;
+		RolePermission other = (RolePermission)obj;
+		return new EqualsBuilder()
+			.append(getId(),other.getId())
+			.isEquals();
+	}
 }
 

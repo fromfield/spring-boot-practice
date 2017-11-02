@@ -38,37 +38,31 @@ package com.github.model;
 
 import org.apache.commons.lang3.builder.*;
 
-public class Role {
+public class UserRole {
 	
 	//alias
-	public static final String TABLE_ALIAS = "Role";
+	public static final String TABLE_ALIAS = "UserRole";
 	public static final String ALIAS_ID = "id";
-	public static final String ALIAS_NAME = "角色名称";
-	public static final String ALIAS_CODE = "角色代码";
-	public static final String ALIAS_STATUS = "是否启用";
-	public static final String ALIAS_CREATE_TIME = "创建时间";
-	public static final String ALIAS_DESCRIPTION = "角色描述";
+	public static final String ALIAS_USER_ID = "userId";
+	public static final String ALIAS_ROLE_ID = "roleId";
+	public static final String ALIAS_UPDATE_TIME = "创建或更新时间";
 	
 	
 	//columns START
 	/** id   db_column: id */ 	
 	private Integer id;
-	/** 角色名称   db_column: name */ 	
-	private String name;
-	/** 角色代码   db_column: code */ 	
-	private String code;
-	/** 是否启用   db_column: status */ 	
-	private Integer status;
-	/** 创建时间   db_column: create_time */ 	
-	private java.util.Date createTime;
-	/** 角色描述   db_column: description */ 	
-	private String description;
+	/** userId   db_column: user_id */ 	
+	private Integer userId;
+	/** roleId   db_column: role_id */ 	
+	private Integer roleId;
+	/** 创建或更新时间   db_column: update_time */ 	
+	private java.util.Date updateTime;
 	//columns END
 
-	public Role(){
+	public UserRole(){
 	}
 
-	public Role(
+	public UserRole(
 		Integer id
 	){
 		this.id = id;
@@ -80,35 +74,23 @@ public class Role {
 	public Integer getId() {
 		return this.id;
 	}
-	public void setName(String value) {
-		this.name = value;
+	public void setUserId(Integer value) {
+		this.userId = value;
 	}
-	public String getName() {
-		return this.name;
+	public Integer getUserId() {
+		return this.userId;
 	}
-	public void setCode(String value) {
-		this.code = value;
+	public void setRoleId(Integer value) {
+		this.roleId = value;
 	}
-	public String getCode() {
-		return this.code;
+	public Integer getRoleId() {
+		return this.roleId;
 	}
-	public void setStatus(Integer value) {
-		this.status = value;
+	public void setUpdateTime(java.util.Date value) {
+		this.updateTime = value;
 	}
-	public Integer getStatus() {
-		return this.status;
-	}
-	public void setCreateTime(java.util.Date value) {
-		this.createTime = value;
-	}
-	public java.util.Date getCreateTime() {
-		return this.createTime;
-	}
-	public void setDescription(String value) {
-		this.description = value;
-	}
-	public String getDescription() {
-		return this.description;
+	public java.util.Date getUpdateTime() {
+		return this.updateTime;
 	}
 
 	public String toString() {
@@ -122,9 +104,9 @@ public class Role {
 	}
 	
 	public boolean equals(Object obj) {
-		if(obj instanceof Role == false) return false;
+		if(obj instanceof UserRole == false) return false;
 		if(this == obj) return true;
-		Role other = (Role)obj;
+		UserRole other = (UserRole)obj;
 		return new EqualsBuilder()
 			.append(getId(),other.getId())
 			.isEquals();

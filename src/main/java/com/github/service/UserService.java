@@ -1,31 +1,25 @@
 package com.github.service;
 
+import com.github.mapper.PermissionMapper;
 import com.github.model.Permission;
-import com.github.model.Role;
-import com.github.model.User;
-import com.github.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.List;
 
 @Service
 public class UserService {
 
-	@Resource private UserRepository userRepository;
+	@Resource private PermissionMapper permissionMapper;
 
+	public List<Permission> getUserMenuPermissionList(Integer userId) {
 
-	public Set<Permission> getUserPermissionSet(Integer userId) {
-
-		User user = userRepository.getOne(userId);
-
-		Set<Permission> permissionSet = new HashSet<Permission>();
-		for (Role role : user.getRoleSet()) {
-			permissionSet.addAll(role.getPermissionSet());
+		List<Permission> permissionList = permissionMapper.getUserMenuPermissionList(userId);
+		for (Permission permission : permissionList) {
+			List<Permission> menuChildPermissionList = permissionMapper.getMenuChildPermissionList(permission.getId());
+			permission.setPermissionList(menuChildPermissionList);
 		}
-
-		return permissionSet;
+		return permissionList;
 	}
-
 }
+

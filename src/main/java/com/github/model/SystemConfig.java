@@ -38,37 +38,34 @@ package com.github.model;
 
 import org.apache.commons.lang3.builder.*;
 
-public class Role {
+public class SystemConfig {
 	
 	//alias
-	public static final String TABLE_ALIAS = "Role";
+	public static final String TABLE_ALIAS = "SystemConfig";
 	public static final String ALIAS_ID = "id";
-	public static final String ALIAS_NAME = "角色名称";
-	public static final String ALIAS_CODE = "角色代码";
-	public static final String ALIAS_STATUS = "是否启用";
-	public static final String ALIAS_CREATE_TIME = "创建时间";
-	public static final String ALIAS_DESCRIPTION = "角色描述";
+	public static final String ALIAS_NAME = "名称";
+	public static final String ALIAS_CODE = "代码";
+	public static final String ALIAS_VALUE = "值";
+	public static final String ALIAS_DESCRIPTION = "描述";
 	
 	
 	//columns START
 	/** id   db_column: id */ 	
 	private Integer id;
-	/** 角色名称   db_column: name */ 	
+	/** 名称   db_column: name */ 	
 	private String name;
-	/** 角色代码   db_column: code */ 	
+	/** 代码   db_column: code */ 	
 	private String code;
-	/** 是否启用   db_column: status */ 	
-	private Integer status;
-	/** 创建时间   db_column: create_time */ 	
-	private java.util.Date createTime;
-	/** 角色描述   db_column: description */ 	
+	/** 值   db_column: value */ 	
+	private String value;
+	/** 描述   db_column: description */ 	
 	private String description;
 	//columns END
 
-	public Role(){
+	public SystemConfig(){
 	}
 
-	public Role(
+	public SystemConfig(
 		Integer id
 	){
 		this.id = id;
@@ -92,17 +89,11 @@ public class Role {
 	public String getCode() {
 		return this.code;
 	}
-	public void setStatus(Integer value) {
-		this.status = value;
+	public void setValue(String value) {
+		this.value = value;
 	}
-	public Integer getStatus() {
-		return this.status;
-	}
-	public void setCreateTime(java.util.Date value) {
-		this.createTime = value;
-	}
-	public java.util.Date getCreateTime() {
-		return this.createTime;
+	public String getValue() {
+		return this.value;
 	}
 	public void setDescription(String value) {
 		this.description = value;
@@ -122,9 +113,9 @@ public class Role {
 	}
 	
 	public boolean equals(Object obj) {
-		if(obj instanceof Role == false) return false;
+		if(obj instanceof SystemConfig == false) return false;
 		if(this == obj) return true;
-		Role other = (Role)obj;
+		SystemConfig other = (SystemConfig)obj;
 		return new EqualsBuilder()
 			.append(getId(),other.getId())
 			.isEquals();
